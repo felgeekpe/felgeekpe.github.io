@@ -1,1 +1,14 @@
-theme: jekyll-theme-minimal
+# Disable Jekyll theme - using custom HTML
+# theme: jekyll-theme-minimal
+
+# Site settings
+title: Felipe Serna | Senior Full-Stack Engineer
+description: Senior Full-Stack Engineer with 13+ years building scalable systems for Disney, Royal Caribbean, Intel.
+url: "https://felgeekpe.github.io"
+
+# Build settings
+markdown: kramdown
+exclude:
+  - "*.docx"
+  - README.md
+  - LICENSE
