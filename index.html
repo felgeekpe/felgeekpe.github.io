@@ -14,6 +14,9 @@
     <!-- Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
+    <!-- AOS (Animate On Scroll) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css">
+
     <style>
         :root {
             /* Typography Scale - Major Third (1.25) */
@@ -323,6 +326,12 @@
 
         .stat:hover {
             background: var(--accent-subtle);
+            transform: translateY(-4px) !important;
+            box-shadow: var(--shadow-glow);
+        }
+
+        .stat:hover .stat-value {
+            color: var(--accent);
         }
 
         .stat-value {
@@ -331,6 +340,8 @@
             color: var(--text-primary);
             font-family: 'JetBrains Mono', monospace;
             letter-spacing: -0.02em;
+            transition: color var(--transition-base);
+            display: inline-block;
         }
 
         .stat-label {
@@ -340,6 +351,11 @@
             letter-spacing: 0.1em;
             font-weight: 600;
             margin-top: var(--space-1);
+            transition: color var(--transition-base);
+        }
+
+        .stat:hover .stat-label {
+            color: var(--text-secondary);
         }
 
         /* ===== SECTIONS ===== */
@@ -809,28 +825,25 @@
                     <a href="https://linkedin.com/in/felipe-serna-2423423b" target="_blank" rel="noopener" class="social-link" aria-label="LinkedIn">
                         <i class="fab fa-linkedin-in"></i>
                     </a>
-                    <a href="mailto:ofelipess@gmail.com" class="social-link" aria-label="Email">
-                        <i class="fas fa-envelope"></i>
-                    </a>
                 </div>
             </div>
 
             <!-- Stats -->
-            <div class="stats-bar">
+            <div class="stats-bar" id="stats-bar">
                 <div class="stat">
-                    <div class="stat-value">4+</div>
+                    <div class="stat-value" data-countup data-target="4" data-suffix="+">0+</div>
                     <div class="stat-label">Years at Disney</div>
                 </div>
                 <div class="stat">
-                    <div class="stat-value">1M+</div>
+                    <div class="stat-value" data-countup data-target="1" data-suffix="M+">0M+</div>
                     <div class="stat-label">Orders Processed</div>
                 </div>
                 <div class="stat">
-                    <div class="stat-value">100K+</div>
+                    <div class="stat-value" data-countup data-target="100" data-suffix="K+">0K+</div>
                     <div class="stat-label">Titles Migrated</div>
                 </div>
                 <div class="stat">
-                    <div class="stat-value">100+</div>
+                    <div class="stat-value" data-countup data-target="100" data-suffix="+">0+</div>
                     <div class="stat-label">Teams Enabled</div>
                 </div>
             </div>
@@ -842,7 +855,7 @@
                 <h2>AI & Emerging Tech</h2>
                 <div class="section-line"></div>
             </div>
-            <div class="ai-feature">
+            <div class="ai-feature" data-aos="fade-up">
                 <div class="ai-feature-header">
                     <div class="ai-icon">
                         <i class="fas fa-brain"></i>
@@ -931,7 +944,7 @@
             </div>
             <div class="experience-list">
                 <!-- Disney -->
-                <div class="experience-card">
+                <div class="experience-card" data-aos="fade-up">
                     <div class="experience-header">
                         <div class="experience-title">
                             <h3>Senior Software Developer</h3>
@@ -962,7 +975,7 @@
                 </div>
 
                 <!-- Royal Caribbean -->
-                <div class="experience-card">
+                <div class="experience-card" data-aos="fade-up" data-aos-delay="100">
                     <div class="experience-header">
                         <div class="experience-title">
                             <h3>Full-Stack Developer</h3>
@@ -985,7 +998,7 @@
                 </div>
 
                 <!-- Earlier Work -->
-                <div class="experience-card">
+                <div class="experience-card" data-aos="fade-up" data-aos-delay="200">
                     <div class="experience-header">
                         <div class="experience-title">
                             <h3>Web UI Developer</h3>
@@ -1015,22 +1028,21 @@
             <h2>Let's Connect</h2>
             <p>Open to opportunities at innovative companies building at scale. Based in Miami, working remote-first for 10+ years.</p>
             <div class="contact-links">
-                <a href="mailto:ofelipess@gmail.com" class="contact-btn primary">
-                    <i class="fas fa-paper-plane"></i>
-                    Get in Touch
-                </a>
-                <a href="https://linkedin.com/in/felipe-serna-2423423b" target="_blank" rel="noopener" class="contact-btn secondary">
+                <a href="https://linkedin.com/in/felipe-serna-2423423b" target="_blank" rel="noopener" class="contact-btn primary">
                     <i class="fab fa-linkedin-in"></i>
-                    LinkedIn
+                    Connect on LinkedIn
                 </a>
             </div>
         </section>
 
         <!-- Footer -->
         <footer>
-            <p>Miami, Florida | Remote-First | (786) 872-2218</p>
+            <p>Miami, Florida | Remote-First</p>
         </footer>
     </div>
+
+    <!-- AOS Library -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
 
     <script>
         // Theme Toggle
@@ -1050,6 +1062,70 @@
             } else if (window.matchMedia('(prefers-color-scheme: light)').matches) {
                 document.documentElement.setAttribute('data-theme', 'light');
             }
+        })();
+
+        // Initialize AOS
+        AOS.init({
+            duration: 600,
+            easing: 'ease-out-cubic',
+            once: true,
+            offset: 50
+        });
+
+        // CountUp animation (vanilla JS - more reliable than CDN library)
+        (function() {
+            const statValues = document.querySelectorAll('[data-countup]');
+            let hasAnimated = false;
+
+            function animateValue(el, target, suffix, duration) {
+                const start = 0;
+                const startTime = performance.now();
+
+                function easeOutCubic(t) {
+                    return 1 - Math.pow(1 - t, 3);
+                }
+
+                function update(currentTime) {
+                    const elapsed = currentTime - startTime;
+                    const progress = Math.min(elapsed / duration, 1);
+                    const easedProgress = easeOutCubic(progress);
+                    const current = Math.floor(easedProgress * target);
+
+                    el.textContent = current + suffix;
+
+                    if (progress < 1) {
+                        requestAnimationFrame(update);
+                    } else {
+                        el.textContent = target + suffix;
+                    }
+                }
+
+                requestAnimationFrame(update);
+            }
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting && !hasAnimated) {
+                        hasAnimated = true;
+
+                        statValues.forEach((el, index) => {
+                            const target = parseInt(el.dataset.target);
+                            const suffix = el.dataset.suffix || '';
+
+                            // Stagger the count animations
+                            setTimeout(() => {
+                                animateValue(el, target, suffix, 2000);
+                            }, index * 150);
+                        });
+
+                        observer.disconnect();
+                    }
+                });
+            }, {
+                threshold: 0.3
+            });
+
+            observer.observe(document.getElementById('stats-bar'));
         })();
     </script>
 </body>
