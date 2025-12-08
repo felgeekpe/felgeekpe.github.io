@@ -1,37 +1,30 @@
-## Welcome to GitHub Pages
+# Felipe Serna | Portfolio
 
-You can use the [editor on GitHub](https://github.com/felgeekpe/felgeekpe.github.io/edit/master/README.md) to maintain and preview the content for your website in Markdown files.
+Personal portfolio website showcasing my experience as a Senior Full-Stack Engineer.
 
-Whenever you commit to this repository, GitHub Pages will run [Jekyll](https://jekyllrb.com/) to rebuild the pages in your site, from the content in your Markdown files.
+**[View Live Site →](https://felgeekpe.github.io)**
 
-### Markdown
+## Features
 
-Markdown is a lightweight and easy-to-use syntax for styling your writing. It includes conventions for
+- Dark/Light theme toggle with system preference detection
+- Scroll animations using AOS (Animate On Scroll)
+- Animated stat counters
+- Fully responsive design
+- No build step required - pure HTML, CSS, and vanilla JavaScript
 
-```markdown
-Syntax highlighted code block
+## Tech Stack
 
-# Header 1
-## Header 2
-### Header 3
+- HTML5 / CSS3 (CSS Variables, Grid, Flexbox)
+- Vanilla JavaScript (ES6+)
+- [Plus Jakarta Sans](https://fonts.google.com/specimen/Plus+Jakarta+Sans) & [JetBrains Mono](https://fonts.google.com/specimen/JetBrains+Mono) fonts
+- [Font Awesome](https://fontawesome.com/) icons
+- [AOS](https://michalsnik.github.io/aos/) animations
+- GitHub Pages hosting
 
-- Bulleted
-- List
+## Local Development
 
-1. Numbered
-2. List
+Open `index.html` directly in your browser - no server required.
 
-**Bold** and _Italic_ and `Code` text
+## License
 
-[Link](url) and ![Image](src)
-```
-
-For more details see [GitHub Flavored Markdown](https://guides.github.com/features/mastering-markdown/).
-
-### Jekyll Themes
-
-Your Pages site will use the layout and styles from the Jekyll theme you have selected in your [repository settings](https://github.com/felgeekpe/felgeekpe.github.io/settings). The name of this theme is saved in the Jekyll `_config.yml` configuration file.
-
-### Support or Contact
-
-Having trouble with Pages? Check out our [documentation](https://help.github.com/categories/github-pages-basics/) or [contact support](https://github.com/contact) and we’ll help you sort it out.
+MIT
